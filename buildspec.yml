@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre-build:
+    commands:
+      - cd my-app
+      - npm install
+  build:
+    commands:
+      - npm build
+  artifacts:
+  files:
+    - '**/*'
+    #- "my-app/build/**/*"
+  base-directory: 'my-app/build'
+  #discard-paths: yes
+~                      
