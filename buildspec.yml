@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - npm build
-  artifacts:
+artifacts:
   files:
     - '**/*'
     #- "my-app/build/**/*"
