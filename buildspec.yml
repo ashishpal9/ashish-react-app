@@ -13,5 +13,5 @@ artifacts:
   files:
     - '**/*'
     #- "/build/**/*"
-  base-directory: react-app/build
+  base-directory: 'app/build'
   #discard-paths: yes
