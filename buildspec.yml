@@ -5,7 +5,6 @@ phases:
       nodejs: 18
   pre-build:
     commands:
-      - cd my-app
       - npm install
   build:
     commands:
