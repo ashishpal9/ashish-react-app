@@ -11,6 +11,6 @@ phases:
       - npm run build
 artifacts:
   files:
-    - 'app/build**/*'
+    - '**/*'
   base-directory: 'app/build'
   #discard-paths: yes
