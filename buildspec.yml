@@ -12,6 +12,6 @@ phases:
 artifacts:
   files:
     - '**/*'
-    #- "src/build/**/*"
-  base-directory: 'src/build'
+    #- "./build/**/*"
+  base-directory: './build'
   #discard-paths: yes
