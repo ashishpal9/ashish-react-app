@@ -1,0 +1,64 @@
+steps:
+  # Step 1: Initialize Terraform
+  - id: 'terraform init'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        terraform init
+
+  # Step 2: Terraform Plan
+  - id: 'terraform plan'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        terraform plan
+
+  # Step 3: Terraform Apply
+  - id: 'terraform apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        terraform apply --auto-approve
+
+  # Step 4: Build the Docker Image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'build'
+      - '-t'
+      - '$_ARTIFACT_REGISTRY_LOCATION-docker.pkg.dev/$_PROJECT_ID/$_ARTIFACT_REGISTRY_REPO/$_IMAGE_NAME:$_IMAGE_TAG'
+      - '.'
+
+  # Step 5: Push the image to the Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'push'
+      - '$_ARTIFACT_REGISTRY_LOCATION-docker.pkg.dev/$_PROJECT_ID/$_ARTIFACT_REGISTRY_REPO/$_IMAGE_NAME:$_IMAGE_TAG'
+
+  # Step 6: Deployment to Cloud Run after image is pushed
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'my-service'
+      - '--image'
+      - '$_ARTIFACT_REGISTRY_LOCATION-docker.pkg.dev/$_PROJECT_ID/$_ARTIFACT_REGISTRY_REPO/$_IMAGE_NAME:$_IMAGE_TAG'
+      - '--region'
+      - '$_ARTIFACT_REGISTRY_LOCATION'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--port'
+      - '3000'  # Application port
+
+# Logging options
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+# Specify the service account used by Cloud Build
+serviceAccount: 195851547020-compute@developer.gserviceaccount.com
