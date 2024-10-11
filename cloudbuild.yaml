@@ -56,6 +56,12 @@ steps:
       - '--port'
       - '3000'  # Application port
 
+substitutions:
+  _PROJECT_ID: react-project-438301
+  _ARTIFACT_REGISTRY_REPO: react--repo
+  _IMAGE_NAME: react-build
+  _IMAGE_TAG: prod1
+
 # Logging options
 options:
   logging: CLOUD_LOGGING_ONLY
