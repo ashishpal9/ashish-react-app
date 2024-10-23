@@ -62,4 +62,4 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 # Specify the service account used by Cloud Build
-serviceAccount: 715495032363-compute@developer.gserviceaccount.com
+serviceAccount: 715495032363@cloudbuild.gserviceaccount.com
