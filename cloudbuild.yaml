@@ -2,29 +2,24 @@ steps:
   # Step 1: Initialize Terraform
   - id: 'terraform init'
     name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'bash'
+    entrypoint: 'terraform'
     args:
-      - '-c'
-      - |
-        terraform init
+      - 'init'
 
   # Step 2: Terraform Plan
   - id: 'terraform plan'
     name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'bash'
+    entrypoint: 'terraform'
     args:
-      - '-c'
-      - |
-        terraform plan
+      - 'plan'
 
   # Step 3: Terraform Apply
   - id: 'terraform apply'
     name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'bash'
+    entrypoint: 'terraform'
     args:
-      - '-c'
-      - |
-        terraform apply --auto-approve
+      - 'apply'
+      - '--auto-approve'
 
   # Step 4: Build the Docker Image
   - name: 'gcr.io/cloud-builders/docker'
@@ -67,4 +62,4 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 # Specify the service account used by Cloud Build
-serviceAccount: 195851547020-compute@developer.gserviceaccount.com
+serviceAccount: 715495032363-compute@developer.gserviceaccount.com
