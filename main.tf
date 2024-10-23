@@ -1,6 +1,6 @@
 provider "google" {
-  project = "react-project-438301"   # Your GCP Project ID
-  region  = "us-central1"             # Change this to your desired region
+  project = var.project_id   # Reference the project ID from the variables
+  region  = "us-central1"    # Set the desired region
 }
 
 resource "google_artifact_registry_repository" "my_repo" {
@@ -30,7 +30,6 @@ resource "google_cloud_run_service" "my_service" {
     # Enable public access to the service
     traffic {
       percent        = 100
-      revision_name  = "${google_cloud_run_service.my_service.name}-00001"  # Latest revision
     }
   }
 }
@@ -62,7 +61,7 @@ variable "image_tag" {
 
 # IAM role for Cloud Run service account to pull images
 resource "google_project_iam_member" "cloud_run_service_account" {
-  project = "react-project-438301"  # Your GCP Project ID
+  project = var.project_id  # Reference the project ID from the variables
   role    = "roles/run.admin"
   member  = "serviceAccount:${google_cloud_run_service.my_service.service_account_email}"
 }
